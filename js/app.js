@@ -23,7 +23,7 @@ copyBtn.addEventListener('click', copyOutput);
 downloadBtn.addEventListener('click', downloadOutput);
 closeModalBtn.addEventListener('click', closePopup);
 visualModal.addEventListener('click', (e) => {
-    if(e.target === visualModal) closePopup();
+    if (e.target === visualModal) closePopup();
 });
 
 dataFile.addEventListener('change', handleFileUpload);
@@ -42,7 +42,7 @@ function handleFileUpload(e) {
 function executeCode() {
     outputDisplay.textContent = 'Executing...';
     outputDisplay.classList.remove('empty-state');
-    
+
     const code = codeInput.value;
     const dataStr = dataInput.value;
     const p1 = param1Input.value;
@@ -53,12 +53,12 @@ function executeCode() {
     try {
         // Try parsing data as JSON, otherwise keep as string
         if (dataStr.trim().startsWith('{') || dataStr.trim().startsWith('[')) {
-             try {
+            try {
                 data = JSON.parse(dataStr);
-             } catch(e) {
+            } catch (e) {
                 console.warn("Data looked like JSON but failed to parse. Using as string.");
                 data = dataStr;
-             }
+            }
         } else {
             data = dataStr;
         }
@@ -69,12 +69,12 @@ function executeCode() {
     try {
         // Prepare Function
         // We wrap it to ensure it returns something or handles the visual output
-        
+
         // Helper for Visual Output
         const openVisualPopup = () => {
-             visualModal.classList.remove('hidden');
-             visualContainer.innerHTML = ''; // Clear previous
-             return visualContainer; // Return the DIV element
+            visualModal.classList.remove('hidden');
+            visualContainer.innerHTML = ''; // Clear previous
+            return visualContainer; // Return the DIV element
         };
 
         // Make libraries available in local scope explicitly if needed (they are global, but safe to reference)
@@ -91,7 +91,7 @@ function executeCode() {
         window.getVisualContainer = openVisualPopup;
 
         const userFunction = new Function('data', 'param1', 'param2', 'param3', code);
-        
+
         // Execute
         const result = userFunction(data, p1, p2, p3);
 
@@ -146,3 +146,18 @@ function closePopup() {
    const container = window.getVisualContainer();
    const svg = d3.select(container).append('svg')...
 */
+
+// --- Security Restrictions ---
+// Disable network access APIs to prevent data leaks from user code.
+(function disableNetworkAccess() {
+    const errorMsg = "Network access (fetch, XHR, WebSocket) is disabled for security.";
+
+    window.fetch = function () { return Promise.reject(new Error(errorMsg)); };
+    window.XMLHttpRequest = function () { throw new Error(errorMsg); };
+    window.WebSocket = function () { throw new Error(errorMsg); };
+    if (navigator.sendBeacon) {
+        navigator.sendBeacon = function () { throw new Error(errorMsg); };
+    }
+
+    console.log("Security: Network access APIs have been disabled.");
+})();
