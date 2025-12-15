@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples - Conclusion Code Executor</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Consolas&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .examples-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        h2 {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #002D5A;
+        }
+
+        h3 {
+            margin-top: 2rem;
+            font-size: 1.1rem;
+        }
+
+        h4 {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+
+        code {
+            font-family: 'Consolas', monospace;
+            background: #eee;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            padding-left: 1rem;
+            color: #555;
+            background: #fafafa;
+            padding: 1rem;
+        }
+
+        .copy-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: #eee;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 3px;
+        }
+
+        .copy-btn:hover {
+            background: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="header-left">
+            <img src="logos/CONCLUSION_RAINB_RGB_LOGO.jpg" alt="Conclusion Logo" class="header-logo">
+            <div class="logo">CONCLUSION <span class="highlight">CODE EXECUTOR</span></div>
+        </div>
+        <div class="subtitle">Examples & Support</div>
+    </header>
+
+    <main class="app-container" style="display: block; overflow-y: auto;">
+
+        <div class="examples-container">
+            <a href="index.html" class="back-link">&larr; Back to App</a>
+
+            <h1>Sample Functions & Prompts</h1>
+            <p>Here are some sample functions to demonstrate the capabilities of the Conclusion Code Executor.</p>
+
+            <h2>1. Simple Output: Digital Clock</h2>
+            <p>This function requires no input parameters. It simply calculates the current time and returns it as a
+                formatted string.</p>
+
+            <pre><code>const now = new Date();
+return `Current Time: ${now.toLocaleTimeString()} (Date: ${now.toLocaleDateString()})`;</code></pre>
+
+            <h2>2. Visual Output: Random D3 Pattern</h2>
+            <p>This function generates a random visual pattern using D3.js.</p>
+            <pre><code>// Get container
+const container = window.getVisualContainer();
+
+// Setup dimensions
+const width = container.clientWidth || 800;
+const height = container.clientHeight || 600;
+
+// Create SVG
+const svg = d3.select(container)
+  .append("svg")
+  .attr("width", "100%")
+  .attr("height", "100%")
+  .attr("viewBox", `0 0 ${width} ${height}`);
+
+// Generate 50 random circles
+for (let i = 0; i < 50; i++) {
+  const cx = Math.random() * width;
+  const cy = Math.random() * height;
+  const r = Math.random() * 50 + 10;
+  const hue = Math.random() * 360;
+  
+  svg.append("circle")
+    .attr("cx", cx)
+    .attr("cy", cy)
+    .attr("r", 0) // Start at 0 for animation
+    .style("fill", `hsla(${hue}, 70%, 50%, 0.6)`)
+    .style("stroke", "#fff")
+    .style("stroke-width", 2)
+    .transition()
+    .duration(1000 + Math.random() * 1000)
+    .attr("r", r);
+}
+
+return "Generated 50 random bubbles.";</code></pre>
+
+            <h2>3. Visual Output: Solar System Graph (Cytoscape)</h2>
+            <p>Display a static graph representing part of the solar system.</p>
+            <pre><code>const container = window.getVisualContainer();
+
+// Style the container for Cytoscape
+container.style.width = '100%';
+container.style.height = '100%';
+
+const cy = cytoscape({
+  container: container,
+  
+  elements: [ // list of graph elements to start with
+    { data: { id: 'sun', label: 'Sun' } },
+    { data: { id: 'earth', label: 'Earth' } },
+    { data: { id: 'mars', label: 'Mars' } },
+    { data: { id: 'jupiter', label: 'Jupiter' } },
+    { data: { source: 'sun', target: 'earth' } },
+    { data: { source: 'sun', target: 'mars' } },
+    { data: { source: 'sun', target: 'jupiter' } }
+  ],
+
+  style: [ // the stylesheet for the graph
+    {
+      selector: 'node',
+      style: {
+        'background-color': '#FFD200',
+        'label': 'data(label)',
+        'color': '#000',
+        'font-weight': 'bold'
+      }
+    },
+    {
+      selector: '#sun',
+      style: {
+        'background-color': '#FF6B00',
+        'width': 60,
+        'height': 60
+      }
+    },
+    {
+      selector: 'edge',
+      style: {
+        'width': 2,
+        'line-color': '#ccc',
+        'target-arrow-color': '#ccc',
+        'target-arrow-shape': 'triangle'
+      }
+    }
+  ],
+
+  layout: {
+    name: 'circle'
+  }
+});
+
+return "Solar system graph rendered.";</code></pre>
+
+            <h2>4. Visual Output: Interactive Map (Leaflet)</h2>
+            <p>Display an interactive map showing Conclusion offices.</p>
+            <pre><code>const container = window.getVisualContainer();
+
+// Create a div for the map
+const mapDiv = document.createElement('div');
+mapDiv.style.width = '100%';
+mapDiv.style.height = '100%';
+container.appendChild(mapDiv);
+
+// Initialize Map
+const map = L.map(mapDiv);
+
+// Add Tiles (OpenStreetMap)
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+// Define Locations
+const locations = [
+    { title: "Conclusion Utrecht", lat: 52.0792, lon: 5.1467, address: "Herculesplein 80, Utrecht" },
+    { title: "Conclusion Nieuwegein", lat: 52.0292, lon: 5.0806, address: "Edisonbaan 15, Nieuwegein" },
+    { title: "Conclusion Amsterdam", lat: 52.3360, lon: 4.9280, address: "Spaklerweg 52c, Amsterdam" }
+];
+
+// Add Markers
+const markerArray = [];
+locations.forEach(loc => {
+    const marker = L.marker([loc.lat, loc.lon]).addTo(map)
+        .bindPopup(`<b>${loc.title}</b><br>${loc.address}`);
+    markerArray.push(marker);
+});
+
+// Fit map to show all markers
+const group = L.featureGroup(markerArray);
+map.fitBounds(group.getBounds().pad(0.1));
+
+// Force map to invalidate size after a slight delay to render correctly in modal
+setTimeout(() => {
+    map.invalidateSize();
+}, 200);
+
+return "Map showing Conclusion offices.";</code></pre>
+
+            <h2>5. Visual Output: D3 Line Chart with Data Input</h2>
+            <p><b>Step 1:</b> Paste this into the Data Parameter:</p>
+            <pre><code>[
+  {"date": "2023-01-01", "value": 10},
+  {"date": "2023-02-01", "value": 45},
+  {"date": "2023-03-01", "value": 30},
+  {"date": "2023-04-01", "value": 60},
+  {"date": "2023-05-01", "value": 55},
+  {"date": "2023-06-01", "value": 80},
+  {"date": "2023-07-01", "value": 70},
+  {"date": "2023-08-01", "value": 90},
+  {"date": "2023-09-01", "value": 100},
+  {"date": "2023-10-01", "value": 85}
+]</code></pre>
+            <p><b>Step 2:</b> Use this Function Code:</p>
+            <pre><code>const container = window.getVisualContainer();
+const containerWidth = container.clientWidth || 800;
+const containerHeight = container.clientHeight || 500;
+
+// Parse the input data
+let chartData = data;
+if (typeof chartData === 'string') {
+    try {
+        chartData = JSON.parse(chartData);
+    } catch(e) {
+        return "Error parsing JSON data: " + e.message;
+    }
+}
+
+if (!Array.isArray(chartData)) {
+    return "Error: Data must be a JSON array.";
+}
+
+if (chartData.length === 0) return "No data provided.";
+
+// Setup margins
+const margin = {top: 20, right: 30, bottom: 40, left: 50};
+const width = containerWidth - margin.left - margin.right;
+const height = containerHeight - margin.top - margin.bottom;
+
+// Clear container
+container.innerHTML = '';
+
+// Create SVG
+const svg = d3.select(container)
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+// Parsers
+const parseTime = d3.timeParse("%Y-%m-%d");
+const formattedData = chartData.map(d => {
+    return { date: parseTime(d.date), value: +d.value };
+});
+
+// X Axis
+const x = d3.scaleTime()
+    .domain(d3.extent(formattedData, d => d.date))
+    .range([0, width]);
+svg.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(d3.axisBottom(x));
+
+// Y Axis
+const y = d3.scaleLinear()
+    .domain([0, d3.max(formattedData, d => d.value)])
+    .range([height, 0]);
+svg.append("g")
+    .call(d3.axisLeft(y));
+
+// Add Line
+svg.append("path")
+    .datum(formattedData)
+    .attr("fill", "none")
+    .attr("stroke", "#FF6B00")
+    .attr("stroke-width", 2.5)
+    .attr("d", d3.line()
+        .x(d => x(d.date))
+        .y(d => y(d.value))
+    );
+
+// Add dots
+svg.selectAll("dot")
+    .data(formattedData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => x(d.date))
+    .attr("cy", d => y(d.value))
+    .attr("r", 5)
+    .attr("fill", "#002D5A");
+
+return "Line chart rendered successfully.";</code></pre>
+
+            <h1 id="prompt-guide">How to Prompt Gen AI</h1>
+            <p>To generate code that works in this application, you can use the following context in your prompt to an
+                AI (like ChatGPT, Claude, or Gemini).</p>
+
+            <blockquote>
+                <b>Context to provide:</b><br><br>
+                I need a JavaScript function body that runs in a specific browser environment.<br>
+                - <b>Inputs:</b> I have access to variables: `data` (can be JSON/text), `param1`, `param2`, `param3`
+                (strings).<br>
+                - <b>Libraries:</b> `d3` (v7), `L` (Leaflet v1.9), and `cytoscape` (v3.28) are available globally.<br>
+                - <b>Visual Output:</b> If creating a visualization, I must use `const container =
+                window.getVisualContainer();` and append elements to it.<br>
+                - <b>Text Output:</b> Use `return` to output text or JSON.
+            </blockquote>
+
+            <h3>Example Prompts</h3>
+
+            <h4>1. Analyze Data (Text Output)</h4>
+            <blockquote>"Write a JavaScript function body that takes a JSON array of numbers from the `data` variable.
+                Calculate the average, min, and max values. Return the result as a formatted string. Use `param1` as a
+                label prefix for the output."</blockquote>
+
+            <h4>2. Create a Chart (D3 Visualization)</h4>
+            <blockquote>"Write a JavaScript function body using D3.js. The `data` variable contains a JSON array of
+                objects with `name` and `value` properties. Create a bar chart in the visual container
+                (`window.getVisualContainer()`). Use `param1` to set the color of the bars. Ensure the chart fits the
+                container."</blockquote>
+
+            <h4>3. Map a Location (Leaflet Visualization)</h4>
+            <blockquote>"Write a JavaScript function body using Leaflet. Create a map inside
+                `window.getVisualContainer()`. Center the map on coordinates provided in `param1` (latitude) and
+                `param2` (longitude). Place a marker at that location with a popup text provided in `param3`. Ensure you
+                call `map.invalidateSize()` after a short timeout."</blockquote>
+
+        </div>
+    </main>
+
+</body>
+
+</html>
