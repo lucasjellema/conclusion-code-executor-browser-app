@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusion JavaScript Code Executor</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="logo">CONCLUSION <span class="highlight">CODE EXECUTOR</span></div>
+        <div class="subtitle">AI Generated Code Runtime Environment</div>
+    </header>
+
+    <main class="app-container">
+
+        <!-- Left Panel: Inputs -->
+        <section class="panel input-panel">
+            <h2>Configuration</h2>
+
+            <div class="form-group">
+                <label for="code-input">Function Code <span class="required">(Required)</span></label>
+                <div class="code-editor-wrapper">
+                    <textarea id="code-input"
+                        placeholder="function (data, param1, param2, param3) {&#10;    // Your code here...&#10;    return 'Hello World';&#10;}"
+                        spellcheck="false"></textarea>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="run-btn" class="btn primary large">RUN CODE</button>
+            </div>
+
+            <div class="form-group">
+                <label for="data-input">Data Parameter (Optional)</label>
+                <div class="file-upload-row">
+                    <textarea id="data-input" placeholder="Paste data JSON or text here..."
+                        class="data-area"></textarea>
+                    <div class="file-trigger">
+                        <input type="file" id="data-file" accept=".json,.txt,.csv,.js">
+                        <button type="button" class="btn secondary small"
+                            onclick="document.getElementById('data-file').click()">Load File</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameters-grid">
+                <div class="form-group">
+                    <label for="param1">Param 1 (Optional)</label>
+                    <input type="text" id="param1" placeholder="Value...">
+                </div>
+                <div class="form-group">
+                    <label for="param2">Param 2 (Optional)</label>
+                    <input type="text" id="param2" placeholder="Value...">
+                </div>
+                <div class="form-group">
+                    <label for="param3">Param 3 (Optional)</label>
+                    <input type="text" id="param3" placeholder="Value...">
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- Right Panel: Output -->
+        <section class="panel output-panel">
+            <h2>Create Output</h2>
+            <div class="output-container">
+                <div id="output-display" class="empty-state">Waiting for execution...</div>
+            </div>
+
+            <div class="output-actions">
+                <button id="copy-btn" class="btn secondary">Copy to Clipboard</button>
+                <button id="download-btn" class="btn secondary">Download Result</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Visual Output Popup Container (Hidden by default) -->
+    <div id="visual-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Visual Output</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div id="visual-container" class="visual-body"></div>
+        </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>
