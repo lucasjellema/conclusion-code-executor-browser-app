@@ -327,3 +327,9 @@ textarea {
     width: 100%;
     height: 100%;
 }
+
+/* Fix for newline rendering in output */
+#output-display {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
